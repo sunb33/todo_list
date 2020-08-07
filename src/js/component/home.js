@@ -2,6 +2,7 @@ import React from "react";
 
 //include images into your bundle
 import rigoImage from "../../img/rigo-baby.jpg";
+import { Todolist } from "./todo";
 
 //create your first component
 export function Home() {
@@ -19,6 +20,9 @@ export function Home() {
 				<a href="http://www.4geeksacademy.com">4Geeks Academy</a>, with
 				love!
 			</p>
+			<div className="component">
+				<Todolist />
+			</div>
 		</div>
 	);
 }
