@@ -1,37 +1,53 @@
-import React from "react";
+import React, { useState, Fragment } from "react";
+import ReactDOM from "react-dom";
 
-export const Todolist = () => {
+import {} from "@fortawesome/free-solid-svg-icons";
+
+export const TodoList = () => {
+	const [lista, setlista] = useState([]);
+
+	const agregarList = e => {
+		if (event.key == "Enter" && e.target.value != "") {
+			setlista([...lista, e.target.value]);
+		}
+	};
+
+	const DeleteItems = indexItem => {
+		setlista(prevState =>
+			prevState.filter((todo, index) => index !== indexItem)
+		);
+	};
+
 	return (
-		<div className="card" style="width: 18rem;">
-			<div className="card-body">
-				<h1 className="card-title">TO-DO LIST</h1>
-				<p className="card-text">
-					Puedes confiar y colocar todo lo que necesites.
-				</p>
-				<a href="#" className="btn btn-primary">
-					CLICK ME
-				</a>
+		<Fragment>
+			<h2 className="d-flex justify-content-center text-center">
+				TO-DO LIST
+			</h2>
+			<div className="d-flex justify-content-center">
+				<input
+					type="text"
+					placeholder="Escribe tu tarea"
+					onKeyPress={agregarList}
+				/>
 			</div>
-		</div>
+
+			<br />
+			<div className="text-center">
+				<ul>
+					{lista.map((item, index) => (
+						<li key={index}>
+							{item}
+							<button
+								className="btn"
+								onClick={() => DeleteItems(index)}>
+								<i className="fas fa-trash-alt" />
+							</button>
+						</li>
+					))}
+				</ul>
+			</div>
+		</Fragment>
 	);
 };
 
-/* 
-export default class Todolist extends Component 
-{
-	render() {
-	return (
-		<div className="card" style="width: 18rem;">
-			<div className="card-body">
-				<h1 className= "card-title">TO-DO LIST</h1>
-				<p className="card-text">
-					Puedes confiar y colocar todo lo que necesites.
-				</p>
-				<a href="#" className="btn btn-primary">
-					CLICK ME
-				</a>
-			</div>
-		</div>
-	);}
-};
-*/
+ReactDOM.render(<TodoList />, document.querySelector("#app"));
